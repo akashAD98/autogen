@@ -21,12 +21,12 @@ def create_lancedb():
 
     db = lancedb.connect(db_path)
     data = [
-                {"vector": [1.1, 1.2], "id": 1, "documents": "This is a test document spark"},
-                {"vector": [0.2, 1.8], "id": 2, "documents": "This is another test document"},
+                {"vector": [1.1, 1.2], "id": 11, "documents": "This is a test document spark"},
+                {"vector": [0.2, 1.8], "id": 22, "documents": "This is another test document"},
                 {"vector": [0.1, 0.3], "id": 3, "documents": "This is a third test document spark"},
-                {"vector": [0.5, 0.7], "id": 4, "documents": "This is a fourth test document"},
-                {"vector": [2.1, 1.3], "id": 5, "documents": "This is a fifth test document spark"},
-                {"vector": [5.1, 8.3], "id": 6, "documents": "This is a sixth test document"},
+                {"vector": [0.5, 0.7], "id": 44, "documents": "This is a fourth test document"},
+                {"vector": [2.1, 1.3], "id": 55, "documents": "This is a fifth test document spark"},
+                {"vector": [5.1, 8.3], "id": 66, "documents": "This is a sixth test document"},
             ]
     try:
         db.create_table("my_table", data)
