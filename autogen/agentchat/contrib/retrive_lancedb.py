@@ -46,7 +46,7 @@ class LancedbRetrieveUserProxyAgent(RetrieveUserProxyAgent):
         db = lancedb.connect(db_path)
         table = db.open_table("my_table")
         query = table.search(vector).where(f"documents LIKE '%{search_string}%'").limit(n_results).to_df()
-        data ={"ids": query["id"].tolist(), "documents": query["documents"].tolist()}
+        data ={"ids": [query["id"].tolist()], "documents": [query["documents"].tolist()]}
         return data
 
 
