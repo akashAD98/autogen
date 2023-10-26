@@ -104,8 +104,6 @@ class LancedbRetrieveUserProxyAgent(RetrieveUserProxyAgent):
                 collection_name=self._collection_name,
                 chunk_mode=self._chunk_mode,
                 must_break_at_empty_line=self._must_break_at_empty_line,
-                embedding_model=self._embedding_model,
-                embedding_function=self._embedding_function,
                 custom_text_split_function=self.custom_text_split_function,
     
             )
@@ -117,8 +115,7 @@ class LancedbRetrieveUserProxyAgent(RetrieveUserProxyAgent):
             search_string=search_string,
             client=self._client,
             collection_name=self._collection_name,
-            embedding_model=self._embedding_model,
-            embedding_function=self._embedding_function,
+        
         )
         self._results = results
         print("doc_ids: ", results["ids"])
@@ -131,7 +128,6 @@ def create_lancedb_from_dir(
     collection_name: str = "all-my-documents",
     chunk_mode: str = "multi_lines",
     must_break_at_empty_line: bool = True,
-    embedding_model: str = "all-MiniLM-L6-v2",  #"BAAI/bge-small-en-v1.5", #all-MiniLM-L6-v2
     custom_text_split_function: Callable = None,
 ):
     """Create a lancedb collection from all the files in a given directory, the directory can also be a single file or a url to
