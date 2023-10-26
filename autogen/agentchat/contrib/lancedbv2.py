@@ -153,20 +153,8 @@ def create_lancedb_from_dir(
     # def create_lancedb():
     if client is None:
         db = client.connect(db_path)
-        data = [
-                        {"vector": [1.1, 1.2], "id": 11, "documents": "This is a test document spark"},
-                        {"vector": [0.2, 1.8], "id": 22, "documents": "This is another test document"},
-                        {"vector": [0.1, 0.3], "id": 3, "documents": "This is a third test document spark"},
-                        {"vector": [0.5, 0.7], "id": 44, "documents": "This is a fourth test document"},
-                        {"vector": [2.1, 1.3], "id": 55, "documents": "This is a fifth test document spark"},
-                        {"vector": [5.1, 8.3], "id": 66, "documents": "This is a sixth test document"},
-                    ]
-        try:
-            db.create_table("my_table", data)
-        except OSError:
-                pass
-
-
+        
+    
 
     if custom_text_split_function is not None:
         chunks = split_files_to_chunks(
@@ -175,6 +163,24 @@ def create_lancedb_from_dir(
     else:
         chunks = split_files_to_chunks(get_files_from_dir(dir_path), max_tokens, chunk_mode, must_break_at_empty_line)
     logger.info(f"Found {len(chunks)} chunks.")
+
+
+
+    db = client.connect(db_path)
+
+    data = [
+                        {"vector": [1.1, 1.2], "id": 11, "documents": "This is a test document spark"},
+                        {"vector": [0.2, 1.8], "id": 22, "documents": "This is another test document"},
+                        {"vector": [0.1, 0.3], "id": 3, "documents": "This is a third test document spark"},
+                        {"vector": [0.5, 0.7], "id": 44, "documents": "This is a fourth test document"},
+                        {"vector": [2.1, 1.3], "id": 55, "documents": "This is a fifth test document spark"},
+                        {"vector": [5.1, 8.3], "id": 66, "documents": "This is a sixth test document"},
+                    ]
+    try:
+        db.create_table(collection_name, dir_path,mode='overwrite')
+    except OSError:
+        pass
+        
 
 
 
@@ -217,3 +223,30 @@ def query_vector_db(
     data ={"ids": [query["id"].tolist()], "documents": [query["documents"].tolist()]}
     return data
 
+
+
+### below os qdrant
+    # results = client.query_batch(
+    #     collection_name,
+    #     query_texts,
+    #     limit=n_results,
+    #     query_filter=models.Filter(
+    #         must=[
+    #             models.FieldCondition(
+    #                 key="document",
+    #                 match=models.MatchText(text=search_string),
+    #             )
+    #         ]
+    #     )
+    #     if search_string
+    #     else None,
+    # )
+
+    # data = {
+    #     "ids": [[result.id for result in sublist] for sublist in results],
+    #     "documents": [[result.document for result in sublist] for sublist in results],
+    # }
+    #return data
+
+
+####
